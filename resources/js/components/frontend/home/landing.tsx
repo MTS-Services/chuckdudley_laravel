@@ -80,7 +80,7 @@ Date: ${new Date().toLocaleDateString()}
 
       {/* HERO */}
       <section className="pt-32 pb-20 px-6 text-center">
-        <h1 className="text-5xl font-black mb-8">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-8">
           REFRESHINGLY SIMPLE!
         </h1>
 
@@ -134,7 +134,7 @@ Date: ${new Date().toLocaleDateString()}
 
       {/* PRICING */}
       <section id="join" className="py-20 px-6 bg-white">
-        <h2 className="text-4xl font-black text-center mb-12">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-center mb-12">
           CHOOSE YOUR PLAN
         </h2>
 
@@ -191,7 +191,7 @@ Date: ${new Date().toLocaleDateString()}
 
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-gloryBlue text-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black mb-8 sm:mb-12 lg:mb-16 uppercase tracking-widest text-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-8 sm:mb-12 lg:mb-16 uppercase tracking-widest text-center">
             The FollowOut Workflow
           </h2>
 
@@ -225,7 +225,7 @@ Date: ${new Date().toLocaleDateString()}
       </section>
       {/* VIDEO */}
       <section className="py-24 bg-gradient-to-br from-gloryBlue to-gloryBlue/80 px-6 text-white text-center">
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-12 uppercase">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-12 uppercase">
           See FollowOut In Action
         </h2>
 
