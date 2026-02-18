@@ -1,0 +1,11 @@
+{
+    "agents": [
+        "windsurf"
+    ],
+    "editors": [
+        "windsurf"
+    ],
+    "guidelines": [
+        "laravel/fortify"
+    ]
+}
