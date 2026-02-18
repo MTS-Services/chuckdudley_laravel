@@ -91,6 +91,45 @@ Date: ${new Date().toLocaleDateString()}
             alt="Before After"
           />
         </div>
+
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
+          <a
+            href="https://apps.apple.com/us/app/followout/id1254455001?ls=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-center 
+               bg-black hover:bg-[#002868] 
+               px-6 py-3 rounded-2xl 
+               shadow-lg hover:shadow-xl 
+               transition-all duration-300 
+               hover:-translate-y-1"
+          >
+            <img
+              src="/assets/svg/app_store_en.svg"
+              alt="Download on the App Store"
+              className="h-12 w-auto"
+            />
+          </a>
+
+          <a
+            href="https://play.google.com/store/apps/details?id=com.followout"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-center 
+               bg-black hover:bg-[#002868] 
+               px-6 py-3 rounded-2xl 
+               shadow-lg hover:shadow-xl 
+               transition-all duration-300 
+               hover:-translate-y-1"
+          >
+            <img
+              src="/assets/svg/google_play_en.svg"
+              alt="Get it on Google Play"
+              className="h-12 w-auto"
+            />
+          </a>
+
+        </div>
       </section>
 
       {/* PRICING */}
