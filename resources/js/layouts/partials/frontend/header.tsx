@@ -25,19 +25,16 @@ export function FrontendHeader() {
 
     return (
         <header className="sticky top-0 z-50">
-            {/* Main Navigation */}
-            <nav className="w-full bg-primary-600">
+            {/* <nav className="w-full bg-primary-600">
                 <div className="mx-auto flex container items-center justify-between px-4 lg:px-6">
-                    {/* Logo */}
+                
                     <Link href="/" className="flex shrink-0 items-center py-3">
                         <AppLogo className="h-20 sm:h-24" />
                     </Link>
-
-                    {/* Desktop Navigation */}
+                    
                     <div className="hidden items-center gap-5 xl:gap-7 lg:flex">
                     </div>
-
-                    {/* Right Side: CTA Button + User Icon */}
+                    
                     <div className="hidden items-center gap-3 lg:flex">
                         <Link
                             href={route('login')}
@@ -47,12 +44,9 @@ export function FrontendHeader() {
                         </Link>
                     </div>
 
-                    {/* Right Side: CTA + User + Hamburger (Mobile) */}
                     <div className="flex items-center lg:hidden">
-                        {/* Vertical divider */}
                         <div className="mr-3 hidden h-10 w-px bg-white/15 sm:block" />
 
-                        {/* CTA pill */}
                         <Link
                             href={route('lpa.start')}
                             className="group hidden items-center gap-1 rounded-full bg-slate-500 py-1.5 pl-3 pr-1.5 transition-all hover:bg-slate-600 sm:flex"
@@ -71,7 +65,6 @@ export function FrontendHeader() {
                             </span>
                         </Link>
 
-                        {/* User icon – dark rounded square */}
                         <Link
                             href={route('login')}
                             className="ml-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary-900/70 text-white transition-colors hover:bg-primary-900"
@@ -79,7 +72,6 @@ export function FrontendHeader() {
                             <User className="h-4 w-4" />
                         </Link>
 
-                        {/* Hamburger – outlined box */}
                         <button
                             type="button"
                             className="ml-2 flex h-9 w-9 items-center justify-center rounded-md border border-white/20 text-white transition-colors hover:bg-white/10"
@@ -95,10 +87,8 @@ export function FrontendHeader() {
                     </div>
                 </div>
 
-                {/* Mobile Menu – Full-screen Overlay */}
                 {mobileMenuOpen && (
                     <div className="fixed inset-0 z-50 flex flex-col bg-primary-600 lg:hidden">
-                        {/* Header row: Logo + Close */}
                         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
                             <Link href="/" onClick={closeMobile} className="flex shrink-0 items-center">
                                 <AppLogo className="h-10 w-auto" />
@@ -113,9 +103,7 @@ export function FrontendHeader() {
                             </button>
                         </div>
 
-                        {/* Navigation list */}
                         <div className="flex-1 overflow-y-auto px-4 pb-8 pt-2">
-                            {/* Mobile CTA + Sign in */}
                             <div className="mt-6 space-y-3">
                                 <Link
                                     href={route('login')}
@@ -129,6 +117,22 @@ export function FrontendHeader() {
                         </div>
                     </div>
                 )}
+            </nav> */}
+            <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b shadow-sm z-50">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                    <img
+                        src="/logo.png"
+                        className="h-16"
+                        alt="FollowOut"
+                    />
+
+                    <a
+                        href="#join"
+                        className="bg-[#002868] text-white px-6 py-2 rounded-full font-bold hover:opacity-90"
+                    >
+                        JOIN TODAY
+                    </a>
+                </div>
             </nav>
         </header>
     );

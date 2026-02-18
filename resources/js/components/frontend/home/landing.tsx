@@ -1,179 +1,191 @@
-import React, { useEffect } from "react";
+"use client";
 
-const FollowOutLanding: React.FC = () => {
-  useEffect(() => {
-    const checkVisibility = () => {
-      const elements = document.querySelectorAll(".fade-in");
-      elements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.85) {
-          el.classList.remove("opacity-0", "translate-y-6");
-          el.classList.add("opacity-100", "translate-y-0");
-        }
-      });
-    };
+import { useState } from "react";
 
-    window.addEventListener("scroll", checkVisibility);
-    window.addEventListener("load", checkVisibility);
+export default function FollowOutLanding() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [code, setCode] = useState("");
+  const [planName, setPlanName] = useState("");
+  const [priceValue, setPriceValue] = useState<number>(0);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-    return () => {
-      window.removeEventListener("scroll", checkVisibility);
-      window.removeEventListener("load", checkVisibility);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const detectPlatform = () => {
+    const ua = navigator.userAgent || navigator.vendor;
+    if (/iPad|iPhone|iPod/.test(ua)) return "ios";
+    if (/android/i.test(ua)) return "android";
+    return "web";
   };
 
-  const handlePlanClick = (type: "monthly" | "yearly") => {
-    console.log(`Open ${type} modal`);
+  const handleSubscription = (plan: "basic" | "premium", price: number) => {
+    setLoadingPlan(plan);
+
+    const generated =
+      (plan === "premium" ? "PREM-" : "BASIC-") +
+      Math.random().toString(36).substring(2, 10).toUpperCase();
+
+    setTimeout(() => {
+      const platform = detectPlatform();
+
+      if (platform === "ios") {
+        window.location.href = `followout://subscribe?code=${generated}&plan=${plan}`;
+        setTimeout(
+          () =>
+          (window.location.href =
+            "https://apps.apple.com/app/followout"),
+          1000
+        );
+      } else if (platform === "android") {
+        window.location.href = `followout://subscribe?code=${generated}&plan=${plan}`;
+        setTimeout(
+          () =>
+          (window.location.href =
+            "https://play.google.com/store/apps/details?id=com.followout"),
+          1000
+        );
+      } else {
+        setCode(generated);
+        setPlanName(plan === "premium" ? "Premium" : "Basic");
+        setPriceValue(price);
+        setModalOpen(true);
+      }
+
+      setLoadingPlan(null);
+    }, 1200);
+  };
+
+  const copyCode = async () => {
+    await navigator.clipboard.writeText(code);
+    alert("Code copied!");
+  };
+
+  const downloadReceipt = () => {
+    const text = `FollowOut Subscription Receipt
+==============================
+Plan: ${planName}
+Price: $${priceValue}
+Code: ${code}
+Date: ${new Date().toLocaleDateString()}
+==============================`;
+
+    const blob = new Blob([text], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `FollowOut_${code}.txt`;
+    link.click();
   };
 
   return (
-    <div className="font-sans text-blue-900">
+    <div className="bg-white text-[#002868] font-sans">
+      {/* NAV */}
 
       {/* HERO */}
-      <section className="min-h-screen flex items-center bg-gradient-to-br from-blue-900 to-blue-800 text-white px-6 py-20">
-        <div className="max-w-6xl mx-auto text-center w-full">
+      <section className="pt-32 pb-20 px-6 text-center">
+        <h1 className="text-5xl font-black mb-8">
+          REFRESHINGLY SIMPLE!
+        </h1>
 
-          <div className="inline-block bg-white/10 backdrop-blur border border-white/20 px-6 py-2 rounded-full font-semibold text-sm mb-8">
-            ✓ No Hidden Fees • No Commissions
-          </div>
+        <div className="max-w-4xl mx-auto">
+          <img
+            src="/assets/images/LandingPageBeforeAfter_2.png"
+            className="rounded-3xl shadow-2xl"
+            alt="Before After"
+          />
+        </div>
+      </section>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold uppercase tracking-tight leading-none mb-6">
-            Refreshingly <br /> Simple!
-          </h1>
+      {/* PRICING */}
+      <section id="join" className="py-20 px-6 bg-white">
+        <h2 className="text-4xl font-black text-center mb-12">
+          CHOOSE YOUR PLAN
+        </h2>
 
-          <p className="text-lg md:text-2xl max-w-3xl mx-auto opacity-90 mb-12">
-            Promote your business without the hassle. No commissions, no forced
-            discounts, no expensive ads.
-          </p>
-
-          {/* BENEFITS */}
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            {[
-              "No commissions and fees",
-              "No deep discounting",
-              "No expensive advertising",
-              "No recurring billings",
-              "No unfair public reviews",
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur border border-white/20 p-5 rounded-xl text-sm font-medium hover:-translate-y-2 transition duration-300"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-
-          {/* PRICING */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-
-            {/* Monthly */}
-            <div className="bg-white text-blue-900 p-10 rounded-3xl shadow-xl hover:-translate-y-3 transition duration-300">
-              <div className="text-sm font-bold uppercase mb-4 text-blue-600">
-                Monthly
-              </div>
-
-              <div className="text-6xl font-extrabold mb-6">
-                $49<span className="text-xl align-top">.95</span>
-              </div>
-
-              <ul className="space-y-3 mb-8 text-left text-sm font-medium">
-                <li>✔ Create FollowOuts</li>
-                <li>✔ Coupons & Deals</li>
-                <li>✔ Reward Programs</li>
-                <li>✔ Promote to Everyone</li>
-                <li>✔ Analytics & Insights</li>
-              </ul>
-
-              <button
-                onClick={() => handlePlanClick("monthly")}
-                className="w-full bg-red-600 text-white py-4 rounded-full font-bold uppercase tracking-wide hover:bg-red-700 transition"
-              >
-                Get Started
-              </button>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* BASIC */}
+          <div className="border p-8 rounded-3xl shadow hover:-translate-y-2 transition">
+            <div className="text-4xl font-black mb-6">
+              $49.95
             </div>
 
-            {/* Yearly */}
-            <div className="bg-red-600 text-white p-10 rounded-3xl shadow-2xl scale-105 hover:scale-110 transition duration-300">
-              <div className="text-sm font-bold uppercase mb-2 bg-white/20 inline-block px-4 py-1 rounded-full">
-                🔥 Best Value
-              </div>
+            <ul className="space-y-3 font-semibold mb-8">
+              <li>✓ Create FollowOuts</li>
+              <li>✓ Create Coupons</li>
+              <li>✓ Create Reward Programs</li>
+            </ul>
 
-              <div className="text-6xl font-extrabold my-6">
-                $179<span className="text-xl align-top">.95</span>
-              </div>
+            <button
+              onClick={() => handleSubscription("basic", 49.95)}
+              className="w-full bg-[#002868] text-white py-4 rounded-xl font-bold"
+            >
+              {loadingPlan === "basic"
+                ? "Processing..."
+                : "BUY SUBSCRIPTION CODE"}
+            </button>
+          </div>
 
-              <p className="text-sm opacity-90 mb-4">Save over 70%!</p>
+          {/* PREMIUM */}
+          <div className="border-4 border-[#BF0A30] p-8 rounded-3xl shadow-xl relative hover:-translate-y-2 transition">
+            <span className="absolute -top-4 right-8 bg-[#BF0A30] text-white px-4 py-1 rounded-full text-sm font-bold">
+              BEST VALUE
+            </span>
 
-              <ul className="space-y-3 mb-8 text-left text-sm font-medium">
-                <li>✔ Create FollowOuts</li>
-                <li>✔ Coupons & Deals</li>
-                <li>✔ Reward Programs</li>
-                <li>✔ Promote to Everyone</li>
-                <li>✔ Analytics & Insights</li>
-                <li>✔ Priority Support</li>
-              </ul>
-
-              <button
-                onClick={() => handlePlanClick("yearly")}
-                className="w-full bg-white text-red-600 py-4 rounded-full font-bold uppercase tracking-wide hover:bg-gray-100 transition"
-              >
-                Get Started
-              </button>
+            <div className="text-4xl font-black text-[#BF0A30] mb-6">
+              $179.95
             </div>
 
+            <ul className="space-y-3 font-semibold mb-8">
+              <li>✓ Create FollowOuts</li>
+              <li>✓ Create Coupons</li>
+              <li>✓ Create Reward Programs</li>
+            </ul>
+
+            <button
+              onClick={() => handleSubscription("premium", 179.95)}
+              className="w-full bg-[#BF0A30] text-white py-4 rounded-xl font-bold"
+            >
+              {loadingPlan === "premium"
+                ? "Processing..."
+                : "BUY SUBSCRIPTION CODE"}
+            </button>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="py-24 bg-gray-50 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-16 uppercase">
-            How It Works
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-gloryBlue text-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black mb-8 sm:mb-12 lg:mb-16 uppercase tracking-widest text-center">
+            The FollowOut Workflow
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              {
-                title: "Create FollowOut",
-                desc: "Post your business location and basic information.",
-              },
-              {
-                title: "Enhance FollowOut",
-                desc: "Add images, videos, coupons & rewards.",
-              },
-              {
-                title: "Measure FollowOut",
-                desc: "Track traffic, invites and analytics.",
-              },
-            ].map((step, i) => (
-              <div
-                key={i}
-                className="bg-white p-10 rounded-2xl shadow-lg hover:-translate-y-3 transition fade-in opacity-0 translate-y-6 duration-700"
-              >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-red-600 to-blue-900 text-white flex items-center justify-center text-2xl font-bold">
-                  {i + 1}
-                </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
+            <div className="p-6 sm:p-8 border-2 border-white/20 rounded-2xl sm:rounded-3xl transition-all duration-300 hover:border-white/40 hover:scale-105">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 font-black text-gloryRed">01</div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">CREATE</h3>
+              <p className="text-base sm:text-lg opacity-80">Post Your Location</p>
 
-                <h3 className="text-xl font-bold mb-3 uppercase">
-                  {step.title}
-                </h3>
+            </div>
 
-                <p className="text-gray-600">{step.desc}</p>
-              </div>
-            ))}
+            <div className="p-6 sm:p-8 border-2 border-white/20 rounded-2xl sm:rounded-3xl transition-all duration-300 hover:border-white/40 hover:scale-105">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 font-black text-gloryRed">02</div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">ENHANCE</h3>
+              <p className="text-base sm:text-lg opacity-80">Images, Videos, Links, Coupons, Rewards</p>
+            </div>
+
+            <div className="p-6 sm:p-8 border-2 border-white/20 rounded-2xl sm:rounded-3xl transition-all duration-300 hover:border-white/40 hover:scale-105 sm:col-span-2 lg:col-span-1">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 font-black text-gloryRed">03</div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">MEASURE</h3>
+              <p className="text-base sm:text-lg opacity-80">Send Invites, Read Foot Traffic Stats</p>
+
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-[1.02]">
+            <img src="/assets/images/FOLLOWOUTUNIVERSITY_MEASUREFOLLOWOUT.png" alt="Measure Stats"
+              className="w-full h-auto rounded-xl sm:rounded-2xl" />
           </div>
         </div>
       </section>
-
       {/* VIDEO */}
-      <section className="py-24 bg-gradient-to-br from-blue-900 to-blue-800 px-6 text-white text-center">
+      <section className="py-24 bg-gradient-to-br from-gloryBlue to-gloryBlue/80 px-6 text-white text-center">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-12 uppercase">
           See FollowOut In Action
         </h2>
@@ -187,28 +199,49 @@ const FollowOutLanding: React.FC = () => {
           </video>
         </div>
       </section>
+      {/* MODAL */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-[#002868]/90 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center">
+            <h3 className="text-2xl font-black mb-4">
+              Subscription Code Generated!
+            </h3>
 
-      {/* FINAL CTA */}
-      <section className="py-24 bg-white text-center px-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 uppercase">
-          Ready to Get Started?
-        </h2>
+            <div className="border rounded-2xl p-6 mb-6">
+              <p className="mb-2 font-semibold text-gray-500">
+                {planName} Plan Code:
+              </p>
+              <p className="text-3xl font-black mb-2">
+                {code}
+              </p>
+              <p className="text-xl font-bold text-[#BF0A30]">
+                ${priceValue}
+              </p>
+            </div>
 
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-          Join thousands of businesses already promoting with FollowOut.
-          No contracts. Cancel anytime.
-        </p>
-
-        <button
-          onClick={scrollToTop}
-          className="bg-red-600 text-white px-10 py-4 rounded-full font-bold uppercase hover:bg-red-700 transition"
-        >
-          Choose Your Plan
-        </button>
-      </section>
-
+            <div className="space-y-3">
+              <button
+                onClick={copyCode}
+                className="w-full bg-[#002868] text-white py-3 rounded-xl font-bold"
+              >
+                Copy Code
+              </button>
+              <button
+                onClick={downloadReceipt}
+                className="w-full bg-[#BF0A30] text-white py-3 rounded-xl font-bold"
+              >
+                Download Receipt
+              </button>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="w-full border py-3 rounded-xl font-bold"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-export default FollowOutLanding;
+}
