@@ -21,7 +21,7 @@ export default function FollowOutLanding() {
 
     const generated =
       (plan === "premium" ? "PREM-" : "BASIC-") +
-      Math.random().toString(36).substring(2, 10).toUpperCase();
+      Math.random().toString(36).substring(2, 10).tocapitalize();
 
     setTimeout(() => {
       const platform = detectPlatform();
@@ -79,16 +79,16 @@ Date: ${new Date().toLocaleDateString()}
       {/* NAV */}
 
       {/* HERO */}
-      <section className="pt-32 pb-20 px-6 text-center">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-8">
-          REFRESHINGLY SIMPLE!
+      <section className="pt-32 px-6 text-center">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-8 capitalize">
+          Refreshingly Simple!
         </h1>
 
         <div className="max-w-4xl mx-auto">
           <img
-            src="/assets/images/LandingPageBeforeAfter_2.png"
-            className="rounded-3xl shadow-2xl"
-            alt="Before After"
+            src="/assets/images/LandingPageBeforeAfter.png"
+            className="rounded-3xl shadow-2xl min-h-[150px]"
+            alt="FollowOut University Before After"
           />
         </div>
 
@@ -133,9 +133,9 @@ Date: ${new Date().toLocaleDateString()}
       </section>
 
       {/* PRICING */}
-      <section id="join" className="py-20 px-6 bg-white">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-center mb-12">
-          CHOOSE YOUR PLAN
+      <section id="join" className="py-12 sm:py-16 lg:py-24 px-6 bg-white">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-center mb-12 capitalize">
+          Choose Your Plan
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -191,11 +191,11 @@ Date: ${new Date().toLocaleDateString()}
 
       <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-gloryBlue text-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-8 sm:mb-12 lg:mb-16 uppercase tracking-widest text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-8 sm:mb-12 lg:mb-16 capitalize tracking-widest text-center">
             The FollowOut Workflow
           </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             <div className="p-6 sm:p-8 border-2 border-white/20 rounded-2xl sm:rounded-3xl transition-all duration-300 hover:border-white/40 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 font-black text-gloryRed">01</div>
               <h3 className="text-xl sm:text-2xl font-bold mb-2">CREATE</h3>
@@ -217,15 +217,44 @@ Date: ${new Date().toLocaleDateString()}
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-[1.02]">
-            <img src="/assets/images/FOLLOWOUTUNIVERSITY_MEASUREFOLLOWOUT.png" alt="Measure Stats"
+          {/* <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-[1.02]">
+            <img src="/assets/images/FOLLOWOUTUNIVERSITY_MEASUREFOLLOWOUT.png" alt="FollowOut University Measure FollowOut"
               className="w-full h-auto rounded-xl sm:rounded-2xl" />
+          </div> */}
+        </div>
+      </section>
+
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-1 gap-5 items-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-center mb-12 capitalize">
+            How It Works 
+          </h2>
+          {/* <div>
+            <p className="text-sm font-semibold tracking-[0.3em] text-gloryBlue capitalize mb-3">
+              Step 03
+            </p>
+            <h3 className="text-3xl md:text-4xl font-black text-gloryBlue mb-4">
+              Measure FollowOut Performance
+            </h3>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Visualize invites, coupon redemptions, and real-world foot traffic in a single
+              dashboard. The FollowOut measurement toolkit keeps food trucks, outdoor events,
+              and retail partners ready to optimize their next move.
+            </p>
+          </div> */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-slate-100">
+            <img
+              src="/assets/images/FOLLOWOUTUNIVERSITY_MEASUREFOLLOWOUT.png"
+              alt="FollowOut University Measure FollowOut"
+              className="w-full h-auto rounded-xl sm:rounded-2xl"
+            />
           </div>
         </div>
       </section>
+
       {/* VIDEO */}
-      <section className="py-24 bg-gradient-to-br from-gloryBlue to-gloryBlue/80 px-6 text-white text-center">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-12 uppercase">
+      <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-gloryBlue to-gloryBlue/80 px-6 text-white text-center capitalize">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-12">
           See FollowOut In Action
         </h2>
 
