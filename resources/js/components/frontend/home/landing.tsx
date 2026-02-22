@@ -43,17 +43,17 @@ export default function FollowOutLanding() {
                             <img src="/assets/images/sss.png" alt="" />
                         </div>
 
-                        <div className="flex flex-wrap justify-start gap-4">
+                        <div className="flex flex-wrap justify-center sm:justify-start gap-4">
                             <a
                                 href="https://apps.apple.com/us/app/followout/id1254455001?ls=1"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center rounded-xl bg-black px-5 py-2.5 shadow-lg transition-all hover:-translate-y-1 hover:bg-[#002868]"
+                                className="inline-flex items-center rounded-xl bg-black px-2 sm:px-5 py-1 sm:py-2.5 shadow-lg transition-all hover:-translate-y-1 hover:bg-[#002868]"
                             >
                                 <img
                                     src="/assets/svg/app_store_en.svg"
                                     alt="Download on the App Store"
-                                    className="h-10 w-auto"
+                                    className="h-8 sm:h-10 w-auto"
                                 />
                             </a>
 
@@ -61,12 +61,12 @@ export default function FollowOutLanding() {
                                 href="https://play.google.com/store/apps/details?id=com.followout"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center rounded-xl bg-black px-5 py-2.5 shadow-lg transition-all hover:-translate-y-1 hover:bg-[#002868]"
+                                className="inline-flex items-center rounded-xl bg-black px-2 sm:px-5 py-1 sm:py-2.5 shadow-lg transition-all hover:-translate-y-1 hover:bg-[#002868]"
                             >
                                 <img
                                     src="/assets/svg/google_play_en.svg"
                                     alt="Get it on Google Play"
-                                    className="h-10 w-auto"
+                                    className="h-8 sm:h-10 w-auto"
                                 />
                             </a>
                         </div>
